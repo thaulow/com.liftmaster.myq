@@ -7,6 +7,10 @@
     "garagedoor_closed",
     "gate_state"
   ],
+  "images": {
+    "small": "/drivers/gate/assets/images/small.jpg",
+    "large": "/drivers/gate/assets/images/large.jpg"
+  },
   "pair": [
     {
       "id": "list_devices",

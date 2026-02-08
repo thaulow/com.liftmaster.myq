@@ -6,6 +6,10 @@
   "capabilities": [
     "onoff"
   ],
+  "images": {
+    "small": "/drivers/lamp/assets/images/small.jpg",
+    "large": "/drivers/lamp/assets/images/large.jpg"
+  },
   "pair": [
     {
       "id": "list_devices",

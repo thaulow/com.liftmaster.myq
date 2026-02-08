@@ -18,9 +18,9 @@
   ],
   "permissions": [],
   "images": {
-    "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "small": "/assets/images/small.jpg",
+    "large": "/assets/images/large.jpg",
+    "xlarge": "/assets/images/xlarge.jpg"
   },
   "author": {
     "name": "Thomas Thaulow",
@@ -204,6 +204,10 @@
         "garagedoor_closed",
         "gate_state"
       ],
+      "images": {
+        "small": "/drivers/garagedoor/assets/images/small.jpg",
+        "large": "/drivers/garagedoor/assets/images/large.jpg"
+      },
       "pair": [
         {
           "id": "list_devices",
@@ -228,6 +232,10 @@
         "garagedoor_closed",
         "gate_state"
       ],
+      "images": {
+        "small": "/drivers/gate/assets/images/small.jpg",
+        "large": "/drivers/gate/assets/images/large.jpg"
+      },
       "pair": [
         {
           "id": "list_devices",
@@ -251,6 +259,10 @@
       "capabilities": [
         "onoff"
       ],
+      "images": {
+        "small": "/drivers/lamp/assets/images/small.jpg",
+        "large": "/drivers/lamp/assets/images/large.jpg"
+      },
       "pair": [
         {
           "id": "list_devices",
