@@ -1,0 +1,16 @@
+{
+  "id": "is_open",
+  "title": {
+    "en": "Door/gate is !{{open|not open}}"
+  },
+  "hint": {
+    "en": "Check if a myQ door or gate is currently open"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=gate|garagedoor"
+    }
+  ]
+}

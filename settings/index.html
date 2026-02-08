@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 1em;
+      color: #333;
+    }
+    .status {
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .status.ok {
+      background: #d4edda;
+      color: #155724;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      font-family: monospace;
+      font-size: 12px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 28px;
+      background: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056CC;
+    }
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+    .instructions {
+      margin-top: 24px;
+      padding: 14px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .instructions ol {
+      padding-left: 20px;
+    }
+    .instructions li {
+      margin-bottom: 4px;
+    }
+    .instructions code {
+      background: #e9ecef;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="status" class="status pending">Checking connection status...</div>
+
+  <label for="token">myQ Refresh Token</label>
+  <textarea id="token" placeholder="Paste your refresh token here..."></textarea>
+  <br>
+  <button id="saveBtn">Save Token</button>
+
+  <div class="instructions">
+    <strong>How to obtain your refresh token:</strong>
+    <ol>
+      <li>Install <a href="https://mitmproxy.org/" target="_blank">mitmproxy</a> on your computer</li>
+      <li>Configure your phone to use mitmproxy as its HTTP proxy</li>
+      <li>Install the mitmproxy CA certificate on your phone</li>
+      <li>Open the official <strong>myQ</strong> app and log in</li>
+      <li>In mitmproxy, find the POST request to <code>partner-identity.myq-cloud.com/connect/token</code></li>
+      <li>Copy the <code>refresh_token</code> value from the JSON response</li>
+      <li>Paste it above and click Save</li>
+    </ol>
+    <p><strong>Note:</strong> The token refreshes automatically. You should only need to do this once, unless the session expires after extended downtime.</p>
+  </div>
+
+  <script>
+    var _homey;
+
+    function onHomeyReady(Homey) {
+      _homey = Homey;
+      checkStatus();
+
+      document.getElementById('saveBtn').addEventListener('click', saveToken);
+
+      Homey.on('myq_status', function(data) {
+        if (data.configured) {
+          setStatus('ok', 'Connected to myQ');
+        } else if (data.error) {
+          setStatus('error', 'Error: ' + data.error);
+        } else {
+          setStatus('pending', 'Not configured');
+        }
+      });
+
+      Homey.ready();
+    }
+
+    function checkStatus() {
+      _homey.api('GET', '/status', function(err, result) {
+        if (err) {
+          setStatus('error', 'Error checking status');
+          return;
+        }
+        if (result && result.configured) {
+          setStatus('ok', 'Connected to myQ');
+        } else {
+          setStatus('pending', 'Not configured - enter your refresh token below');
+        }
+      });
+    }
+
+    function saveToken() {
+      var token = document.getElementById('token').value.trim();
+      if (!token) {
+        setStatus('error', 'Please enter a refresh token');
+        return;
+      }
+
+      var btn = document.getElementById('saveBtn');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      setStatus('pending', 'Validating token...');
+
+      _homey.set('myq_refresh_token_input', token, function(err) {
+        btn.disabled = false;
+        btn.textContent = 'Save Token';
+        if (err) {
+          setStatus('error', 'Error: ' + (err.message || err));
+        }
+        document.getElementById('token').value = '';
+      });
+    }
+
+    function setStatus(type, message) {
+      var el = document.getElementById('status');
+      el.className = 'status ' + type;
+      el.textContent = message;
+    }
+  </script>
+</body>
+</html>

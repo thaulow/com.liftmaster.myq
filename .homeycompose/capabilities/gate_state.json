@@ -1,0 +1,35 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Door/Gate State"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "values": [
+    {
+      "id": "open",
+      "title": { "en": "Open" }
+    },
+    {
+      "id": "closed",
+      "title": { "en": "Closed" }
+    },
+    {
+      "id": "opening",
+      "title": { "en": "Opening" }
+    },
+    {
+      "id": "closing",
+      "title": { "en": "Closing" }
+    },
+    {
+      "id": "stopped",
+      "title": { "en": "Stopped" }
+    },
+    {
+      "id": "unknown",
+      "title": { "en": "Unknown" }
+    }
+  ]
+}

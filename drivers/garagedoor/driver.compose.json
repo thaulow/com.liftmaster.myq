@@ -1,0 +1,23 @@
+{
+  "name": {
+    "en": "myQ Garage Door"
+  },
+  "class": "garagedoor",
+  "capabilities": [
+    "garagedoor_closed",
+    "gate_state"
+  ],
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

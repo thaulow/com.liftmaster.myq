@@ -1,0 +1,16 @@
+{
+  "id": "door_opened",
+  "title": {
+    "en": "Door/gate opened"
+  },
+  "hint": {
+    "en": "Triggered when a myQ door or gate reaches the open state"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=gate|garagedoor"
+    }
+  ]
+}

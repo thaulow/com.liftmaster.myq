@@ -1,0 +1,10 @@
+{
+  "errors": {
+    "not_configured": "myQ is not configured. Please enter your refresh token in the app settings.",
+    "device_not_found": "Device not found in myQ account.",
+    "device_offline": "Device is offline.",
+    "rate_limited": "myQ API rate limited. Please wait 60-90 minutes.",
+    "command_failed": "Failed to send command to device.",
+    "auth_failed": "Authentication failed. Please update your refresh token in app settings."
+  }
+}

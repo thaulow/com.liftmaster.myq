@@ -1,0 +1,16 @@
+{
+  "id": "turn_on_lamp",
+  "title": {
+    "en": "Turn on lamp"
+  },
+  "hint": {
+    "en": "Turn on a myQ lamp"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=lamp"
+    }
+  ]
+}

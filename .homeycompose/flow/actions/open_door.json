@@ -1,0 +1,16 @@
+{
+  "id": "open_door",
+  "title": {
+    "en": "Open door/gate"
+  },
+  "hint": {
+    "en": "Send an open command to a myQ door or gate"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=gate|garagedoor"
+    }
+  ]
+}
