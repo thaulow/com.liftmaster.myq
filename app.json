@@ -26,6 +26,7 @@
     "name": "Thomas Thaulow",
     "email": "thaulow@thaulow.co"
   },
+  "brandColor": "#3da4dc",
   "flow": {
     "triggers": [
       {
