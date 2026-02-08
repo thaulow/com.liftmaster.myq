@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -107,33 +108,37 @@
 
     function onHomeyReady(Homey) {
       _homey = Homey;
-      checkStatus();
+
+      // Must call ready() first to dismiss the loading spinner
+      Homey.ready();
 
       document.getElementById('saveBtn').addEventListener('click', saveToken);
 
-      Homey.on('myq_status', function(data) {
-        if (data.configured) {
-          setStatus('ok', 'Connected to myQ');
-        } else if (data.error) {
-          setStatus('error', 'Error: ' + data.error);
-        } else {
-          setStatus('pending', 'Not configured');
+      Homey.on('settings.set', function(key) {
+        if (key === 'myq_configured' || key === 'myq_error') {
+          checkStatus();
         }
       });
 
-      Homey.ready();
+      checkStatus();
     }
 
     function checkStatus() {
-      _homey.api('GET', '/status', function(err, result) {
+      _homey.get('myq_configured', function(err, configured) {
         if (err) {
           setStatus('error', 'Error checking status');
           return;
         }
-        if (result && result.configured) {
+        if (configured) {
           setStatus('ok', 'Connected to myQ');
         } else {
-          setStatus('pending', 'Not configured - enter your refresh token below');
+          _homey.get('myq_error', function(err2, errorMsg) {
+            if (errorMsg) {
+              setStatus('error', 'Error: ' + errorMsg);
+            } else {
+              setStatus('pending', 'Not configured - enter your refresh token below');
+            }
+          });
         }
       });
     }

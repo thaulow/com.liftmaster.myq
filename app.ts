@@ -35,11 +35,13 @@ class MyApp extends Homey.App {
       await this.myqClient.setRefreshToken(refreshToken.trim());
       // Clear the input setting (token is now stored internally)
       this.homey.settings.unset('myq_refresh_token_input');
+      this.homey.settings.set('myq_configured', true);
+      this.homey.settings.set('myq_error', '');
       this.log('myQ refresh token successfully configured');
-      this.homey.api.realtime('myq_status', { configured: true, error: null });
     } catch (err: any) {
       this.error('Failed to configure myQ token:', err.message);
-      this.homey.api.realtime('myq_status', { configured: false, error: err.message });
+      this.homey.settings.set('myq_configured', false);
+      this.homey.settings.set('myq_error', err.message);
     }
   }
 

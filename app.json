@@ -1,3 +1,319 @@
 {
-  "_comment": "This file is generated. Please edit .homeycompose/app.json instead."
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.liftmaster.myq",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Liftmaster myQ"
+  },
+  "description": {
+    "en": "Adds support for Liftmaster myQ devices"
+  },
+  "category": [
+    "security"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Thomas Thaulow",
+    "email": "thaulow@thaulow.co"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "door_closed",
+        "title": {
+          "en": "Door/gate closed"
+        },
+        "hint": {
+          "en": "Triggered when a myQ door or gate reaches the closed state"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gate|garagedoor"
+          }
+        ]
+      },
+      {
+        "id": "door_opened",
+        "title": {
+          "en": "Door/gate opened"
+        },
+        "hint": {
+          "en": "Triggered when a myQ door or gate reaches the open state"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gate|garagedoor"
+          }
+        ]
+      },
+      {
+        "id": "lamp_turned_off",
+        "title": {
+          "en": "Lamp turned off"
+        },
+        "hint": {
+          "en": "Triggered when a myQ lamp is turned off"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lamp"
+          }
+        ]
+      },
+      {
+        "id": "lamp_turned_on",
+        "title": {
+          "en": "Lamp turned on"
+        },
+        "hint": {
+          "en": "Triggered when a myQ lamp is turned on"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lamp"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "is_closed",
+        "title": {
+          "en": "Door/gate is !{{closed|not closed}}"
+        },
+        "hint": {
+          "en": "Check if a myQ door or gate is currently closed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gate|garagedoor"
+          }
+        ]
+      },
+      {
+        "id": "is_open",
+        "title": {
+          "en": "Door/gate is !{{open|not open}}"
+        },
+        "hint": {
+          "en": "Check if a myQ door or gate is currently open"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gate|garagedoor"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "close_door",
+        "title": {
+          "en": "Close door/gate"
+        },
+        "hint": {
+          "en": "Send a close command to a myQ door or gate"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gate|garagedoor"
+          }
+        ]
+      },
+      {
+        "id": "open_door",
+        "title": {
+          "en": "Open door/gate"
+        },
+        "hint": {
+          "en": "Send an open command to a myQ door or gate"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gate|garagedoor"
+          }
+        ]
+      },
+      {
+        "id": "turn_off_lamp",
+        "title": {
+          "en": "Turn off lamp"
+        },
+        "hint": {
+          "en": "Turn off a myQ lamp"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lamp"
+          }
+        ]
+      },
+      {
+        "id": "turn_on_lamp",
+        "title": {
+          "en": "Turn on lamp"
+        },
+        "hint": {
+          "en": "Turn on a myQ lamp"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lamp"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "myQ Garage Door"
+      },
+      "class": "garagedoor",
+      "capabilities": [
+        "garagedoor_closed",
+        "gate_state"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "garagedoor"
+    },
+    {
+      "name": {
+        "en": "myQ Gate"
+      },
+      "class": "garagedoor",
+      "capabilities": [
+        "garagedoor_closed",
+        "gate_state"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "gate"
+    },
+    {
+      "name": {
+        "en": "myQ Lamp"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "lamp"
+    }
+  ],
+  "capabilities": {
+    "gate_state": {
+      "type": "enum",
+      "title": {
+        "en": "Door/Gate State"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "values": [
+        {
+          "id": "open",
+          "title": {
+            "en": "Open"
+          }
+        },
+        {
+          "id": "closed",
+          "title": {
+            "en": "Closed"
+          }
+        },
+        {
+          "id": "opening",
+          "title": {
+            "en": "Opening"
+          }
+        },
+        {
+          "id": "closing",
+          "title": {
+            "en": "Closing"
+          }
+        },
+        {
+          "id": "stopped",
+          "title": {
+            "en": "Stopped"
+          }
+        },
+        {
+          "id": "unknown",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ]
+    }
+  }
 }

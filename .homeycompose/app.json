@@ -24,11 +24,5 @@
   "author": {
     "name": "Thomas Thaulow",
     "email": "thaulow@thaulow.co"
-  },
-  "api": {
-    "getStatus": {
-      "method": "GET",
-      "path": "/status"
-    }
   }
 }
