@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light bulb icon -->
+  <!-- Bulb -->
+  <path d="M500 100 C330 100 200 230 200 400 C200 520 270 610 360 670 L360 750 L640 750 L640 670 C730 610 800 520 800 400 C800 230 670 100 500 100 Z" fill="none" stroke="#000" stroke-width="40" stroke-linejoin="round"/>
+  <!-- Base rings -->
+  <line x1="360" y1="800" x2="640" y2="800" stroke="#000" stroke-width="40" stroke-linecap="round"/>
+  <line x1="380" y1="860" x2="620" y2="860" stroke="#000" stroke-width="40" stroke-linecap="round"/>
+  <!-- Bottom tip -->
+  <path d="M420 890 Q500 950 580 890" fill="none" stroke="#000" stroke-width="35" stroke-linecap="round"/>
+  <!-- Filament lines -->
+  <path d="M400 500 Q450 400 500 500 Q550 600 600 500" fill="none" stroke="#000" stroke-width="25" stroke-linecap="round"/>
+</svg>
