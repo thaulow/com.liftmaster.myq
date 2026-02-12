@@ -1,1 +1,1 @@
-Adds support for Liftmaster myQ devices
+Control your Liftmaster myQ garage doors, gates, and lamps directly from Homey. Open, close, and monitor the state of your doors and gates in real time, and switch your myQ lamps on or off — all from a single app. Use Homey flows to automate your myQ devices: get notified when a garage door opens, automatically close it at night, or turn on a lamp when you arrive home.
