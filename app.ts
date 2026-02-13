@@ -11,7 +11,6 @@ class MyApp extends Homey.App {
     this.myqClient = new MyQClient(this.homey);
     await this.myqClient.init();
 
-    this._registerFlowCards();
     this._listenForSettings();
 
     this.log('Liftmaster myQ app initialized');
@@ -43,35 +42,6 @@ class MyApp extends Homey.App {
       this.homey.settings.set('myq_configured', false);
       this.homey.settings.set('myq_error', err.message);
     }
-  }
-
-  private _registerFlowCards(): void {
-    // Door/gate action cards
-    this.homey.flow.getActionCard('open_door').registerRunListener(async (args) => {
-      await args.device.triggerCapabilityListener('garagedoor_closed', false);
-    });
-
-    this.homey.flow.getActionCard('close_door').registerRunListener(async (args) => {
-      await args.device.triggerCapabilityListener('garagedoor_closed', true);
-    });
-
-    // Door/gate condition cards
-    this.homey.flow.getConditionCard('is_open').registerRunListener(async (args) => {
-      return args.device.getCapabilityValue('garagedoor_closed') === false;
-    });
-
-    this.homey.flow.getConditionCard('is_closed').registerRunListener(async (args) => {
-      return args.device.getCapabilityValue('garagedoor_closed') === true;
-    });
-
-    // Lamp action cards
-    this.homey.flow.getActionCard('turn_on_lamp').registerRunListener(async (args) => {
-      await args.device.triggerCapabilityListener('onoff', true);
-    });
-
-    this.homey.flow.getActionCard('turn_off_lamp').registerRunListener(async (args) => {
-      await args.device.triggerCapabilityListener('onoff', false);
-    });
   }
 
 }

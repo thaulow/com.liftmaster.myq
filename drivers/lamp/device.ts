@@ -9,7 +9,6 @@ const POLL_INTERVAL = 30_000; // 30 seconds
 class LampDevice extends Homey.Device {
 
   private _pollInterval: ReturnType<typeof setInterval> | null = null;
-  private _lastLampState: string | null = null;
 
   async onInit() {
     this.log('LampDevice initialized:', this.getName());
@@ -81,25 +80,6 @@ class LampDevice extends Homey.Device {
     const isOn = device.state.lamp_state === 'on';
     await this.setCapabilityValue('onoff', isOn).catch(this.error);
 
-    // Trigger flows on state change
-    const newState = (device.state.lamp_state as string) || 'off';
-    if (this._lastLampState !== null && this._lastLampState !== newState) {
-      if (newState === 'on') {
-        await this._triggerFlow('lamp_turned_on');
-      } else {
-        await this._triggerFlow('lamp_turned_off');
-      }
-    }
-    this._lastLampState = newState;
-  }
-
-  private async _triggerFlow(cardId: string): Promise<void> {
-    try {
-      const card = this.homey.flow.getDeviceTriggerCard(cardId);
-      await card.trigger(this, {}, {});
-    } catch (err: any) {
-      this.error(`Failed to trigger flow ${cardId}:`, err.message);
-    }
   }
 
 }

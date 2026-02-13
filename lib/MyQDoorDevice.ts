@@ -16,7 +16,6 @@ export class MyQDoorDevice extends Homey.Device {
 
   private _pollInterval: ReturnType<typeof setInterval> | null = null;
   private _activePollTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _lastDoorState: string | null = null;
 
   async onInit() {
     this.log(`${this.constructor.name} initialized:`, this.getName());
@@ -128,24 +127,6 @@ export class MyQDoorDevice extends Homey.Device {
       await this.setCapabilityValue('gate_state', doorState).catch(this.error);
     }
 
-    // Trigger flows on state change
-    if (this._lastDoorState !== null && this._lastDoorState !== doorState) {
-      if (doorState === DoorState.Open) {
-        await this._triggerFlow('door_opened');
-      } else if (doorState === DoorState.Closed) {
-        await this._triggerFlow('door_closed');
-      }
-    }
-    this._lastDoorState = doorState;
-  }
-
-  private async _triggerFlow(cardId: string): Promise<void> {
-    try {
-      const card = this.homey.flow.getDeviceTriggerCard(cardId);
-      await card.trigger(this, {}, {});
-    } catch (err: any) {
-      this.error(`Failed to trigger flow ${cardId}:`, err.message);
-    }
   }
 
 }
